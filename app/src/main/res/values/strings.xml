@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">PracticeApp</string>
+    <string name="hello_world">Practice App</string>
+    <string name="facebook_app_id">1810524002600449</string>
+</resources>
