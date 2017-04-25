@@ -10,6 +10,11 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+        buildConfigField "String", "YELP_BASE_URL", '"https://api.yelp.com/"'
+        buildConfigField "String", "YELP_CLIENT_ID", '"2PBEqeSFb6CBgGQgYJW0Ag"'
+        buildConfigField "String", "YELP_CLIENT_SECRET", '"de1l4V2oxul94uq6s5qIceRZGCU2A9gDqkDWAuOqT07mNXHLM0T59tYJ9DhPb5Y9"'
+        buildConfigField "String", "YELP_GRANT_TYPE", '"client_credentials"'
     }
     buildTypes {
         release {
@@ -24,6 +29,7 @@ dependencies {
     compile 'com.facebook.android:facebook-android-sdk:[4,5)'
     compile 'com.google.android.gms:play-services-base:10.2.1'
     compile 'com.google.android.gms:play-services-location:10.2.1'
+    compile "com.android.support:recyclerview-v7:25.1.1"
     compile 'com.squareup.okhttp3:okhttp:3.7.0'
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
