@@ -11,12 +11,16 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.RequiresPermission;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.util.Log;
 
+import com.example.laxmibhargavivaditala.practiceapp.model.MyLocation;
 import com.example.laxmibhargavivaditala.practiceapp.model.User;
 import com.facebook.AccessToken;
 import com.facebook.GraphRequest;
@@ -46,6 +50,7 @@ public class HomeScreenActivity extends AppCompatActivity implements GoogleApiCl
     private static final int SETTINGS_REQUEST = 101;
 
     private GoogleApiClient mGoogleApiClient;
+    private Fragment homeScreenFragment;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -137,6 +142,8 @@ public class HomeScreenActivity extends AppCompatActivity implements GoogleApiCl
                         LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient, locationRequest, new LocationListener() {
                             @Override
                             public void onLocationChanged(Location location) {
+                                MyLocation.createLocation(location.getLatitude(), location.getLongitude());
+                                addHomeFragment();
                                 Log.d(TAG, "Received Location" + location);
                             }
                         });
@@ -212,6 +219,8 @@ public class HomeScreenActivity extends AppCompatActivity implements GoogleApiCl
 
     private void onLocationError() {
         if (User.getUser() != null && !TextUtils.isEmpty(User.getUser().getCity())) {
+            MyLocation.createLocation(User.getUser().getCity(), User.getUser().getState());
+            addHomeFragment();
 
         } else {
             showErrorDialog();
@@ -236,5 +245,13 @@ public class HomeScreenActivity extends AppCompatActivity implements GoogleApiCl
                     }
                 }).show();
 
+    }
+
+    private void addHomeFragment() {
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        homeScreenFragment = new HomeScreenFragment();
+        fragmentTransaction.add(R.id.fragment_container, homeScreenFragment);
+        fragmentTransaction.commit();
     }
 }

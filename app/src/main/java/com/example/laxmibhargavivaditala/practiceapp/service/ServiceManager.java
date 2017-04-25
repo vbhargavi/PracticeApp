@@ -12,6 +12,7 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
+import okhttp3.FormBody;
 import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -69,11 +70,12 @@ public class ServiceManager {
         builder.appendPath("token");
         String url = builder.build().toString();
 
-        OAuthRequest oAuthRequest = new OAuthRequest(YELP_CLIENT_ID, YELP_CLIENT_SECRET, YELP_GRANT_TYPE);
+        RequestBody formBody = new FormBody.Builder().add("client_id", YELP_CLIENT_ID)
+                .add("client_secret", YELP_CLIENT_SECRET)
+                .add("grant_type",YELP_GRANT_TYPE)
+                .build();
 
-        RequestBody requestBody = RequestBody.create(JSON, gson.toJson(oAuthRequest));
-
-        String response = makeCall(url, requestBody, null);
+        String response = makeCall(url, formBody, null);
 
         oAuthResponse = gson.fromJson(response, OAuthResponse.class);
 
