@@ -46,6 +46,7 @@ public class ServiceManager {
 
         if (headers != null) {
             for (String key : headers.keySet()) {
+                Log.d(ServiceManager.class.getSimpleName(),"Header : " + key + " Value : " + headers.get(key));
                 requestBuilder.addHeader(key, headers.get(key));
             }
         }
@@ -84,6 +85,7 @@ public class ServiceManager {
 
     public static SearchResponse searchBusiness(String query, double lat, double lng) throws IOException {
         Uri.Builder builder = Uri.parse(YELP_BASE_URL).buildUpon();
+        builder.appendPath("v3");
         builder.appendPath("businesses");
         builder.appendPath("search");
         builder.appendQueryParameter("term", query);
@@ -97,5 +99,24 @@ public class ServiceManager {
         String response = makeCall(url, headers);
 
         return gson.fromJson(response, SearchResponse.class);
+    }
+
+    public static SearchResponse searchBusiness(String query, String city, String state) throws IOException {
+        Uri.Builder builder = Uri.parse(YELP_BASE_URL).buildUpon();
+        builder.appendPath("v3");
+        builder.appendPath("businesses");
+        builder.appendPath("search");
+        builder.appendQueryParameter("term", query);
+        builder.appendQueryParameter("location", city +","+state);
+
+        String url = builder.build().toString();
+
+        Map<String, String> headers = new HashMap<>();
+        headers.put("Authorization", oAuthResponse.getRequestHeader());
+
+        String response = makeCall(url, headers);
+
+        return gson.fromJson(response, SearchResponse.class);
+
     }
 }

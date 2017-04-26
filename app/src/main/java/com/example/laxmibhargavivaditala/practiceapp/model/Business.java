@@ -8,13 +8,30 @@ import com.google.gson.annotations.SerializedName;
 
 public class Business {
     private String name;
-    private int rating;
+    private double rating;
     @SerializedName("review_count")
     private int reviewCount;
     private String price;
     private String phone;
     @SerializedName("display_phone")
     private String displayPhone;
+
+    public String getName() {
+        return name;
+    }
+
+    public double getRating() {
+        return rating;
+    }
+
+    public String getDisplayPhone() {
+        return displayPhone;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
     @SerializedName("image_url")
     private String imageUrl;
 }

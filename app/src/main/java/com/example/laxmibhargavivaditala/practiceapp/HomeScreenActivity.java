@@ -19,6 +19,8 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.View;
+import android.widget.ProgressBar;
 
 import com.example.laxmibhargavivaditala.practiceapp.model.MyLocation;
 import com.example.laxmibhargavivaditala.practiceapp.model.User;
@@ -51,10 +53,13 @@ public class HomeScreenActivity extends AppCompatActivity implements GoogleApiCl
 
     private GoogleApiClient mGoogleApiClient;
     private Fragment homeScreenFragment;
+    private ProgressBar progressbar;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.home_screen_layout);
+        progressbar = (ProgressBar) findViewById(R.id.progressbar);
         getFacebookUserData();
     }
 
@@ -253,5 +258,7 @@ public class HomeScreenActivity extends AppCompatActivity implements GoogleApiCl
         homeScreenFragment = new HomeScreenFragment();
         fragmentTransaction.add(R.id.fragment_container, homeScreenFragment);
         fragmentTransaction.commit();
+        progressbar.setVisibility(View.GONE);
+
     }
 }
