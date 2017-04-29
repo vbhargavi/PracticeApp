@@ -7,5 +7,9 @@ import com.google.gson.annotations.SerializedName;
  */
 
 public class SearchResponse {
+    public Business[] getBusinesses() {
+        return businesses;
+    }
+
     private Business[] businesses;
 }

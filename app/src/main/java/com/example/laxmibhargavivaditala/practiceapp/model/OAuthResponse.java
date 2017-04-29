@@ -9,6 +9,7 @@ public class OAuthResponse {
 
     long expiresIn;
 
+    @SerializedName("token_type")
     private String tokenType;
 
     public String getAccessToken() {
