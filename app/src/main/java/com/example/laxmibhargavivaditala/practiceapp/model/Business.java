@@ -8,6 +8,12 @@ import com.google.gson.annotations.SerializedName;
 
 public class Business {
     private String name;
+    private String id;
+
+    public String getId() {
+        return id;
+    }
+
     private double rating;
     @SerializedName("review_count")
     private int reviewCount;
@@ -31,6 +37,7 @@ public class Business {
     public String getImageUrl() {
         return imageUrl;
     }
+
 
     @SerializedName("image_url")
     private String imageUrl;

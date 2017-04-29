@@ -1,6 +1,7 @@
 package com.example.laxmibhargavivaditala.practiceapp.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -9,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.laxmibhargavivaditala.practiceapp.BusinessDetailActivity;
 import com.example.laxmibhargavivaditala.practiceapp.R;
 import com.example.laxmibhargavivaditala.practiceapp.model.Business;
 import com.example.laxmibhargavivaditala.practiceapp.service.ServiceManager;
@@ -78,6 +80,17 @@ public class SearchAdapter extends RecyclerView.Adapter {
             int width = imageView.getLayoutParams().width;
             int height = imageView.getLayoutParams().height;
             String imageUrl = business.getImageUrl();
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(mContext, BusinessDetailActivity.class);
+                    intent.putExtra(BusinessDetailActivity.EXTRA_ID, business.getId());
+                    mContext.startActivity(intent);
+
+                }
+            });
 
             Picasso.with(mContext)
                     .load(imageUrl)
